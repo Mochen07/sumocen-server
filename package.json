@@ -1,0 +1,30 @@
+{
+  "name": "sumocen-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon main.js",
+    "build": "babel src -d dist",
+    "start": "node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mochen07/sumocen-server.git"
+  },
+  "author": "mochen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mochen07/sumocen-server/issues"
+  },
+  "homepage": "https://github.com/Mochen07/sumocen-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "nodemon": "^2.0.2"
+  }
+}
