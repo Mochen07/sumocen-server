@@ -22,7 +22,7 @@ app.use(body_parser)
 app.use(IndexRouter)
 app.use(UserRouter)
 // 2.1 挂载错误日志中间件
-// app.use(error_log)
+app.use(error_log)
 // 2.2 配置空路由
 app.use((req, res) => {
     res.json({

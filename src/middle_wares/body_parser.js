@@ -2,9 +2,8 @@ import querystring from 'querystring'
 
 // 处理post请求
 export default (req, res, next) => {
-
     // 1. 过滤get请求
-    const type = req.method.tolowerCase()
+    const type = req.method.toLowerCase()
     if (type === 'get') return next()
 
     // 2. 过滤文件(图片, 音视频...) content-type:multipart/form-data
