@@ -11,7 +11,7 @@ mongoose.connection.on('error', (err) => {
 const userSchema = mongoose.Schema({
     nickname: {type: String, required: true}, // 呢称
     name: {type: String, default: '芸芸众生'}, // 姓名
-    password: {type: Number, required: true}, // 密码
+    password: {type: String, required: true}, // 密码
     avatar: {type: String, required: false}, // 头像
     phone: {type: Number, required: false}, // 手机
     email: {type: String, required: false}, // 邮箱

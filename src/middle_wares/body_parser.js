@@ -17,7 +17,7 @@ export default (req, res, next) => {
     })
     req.on('end', () => {
         // 处理成json放到body
-        req.body = querystring(data)
+        req.body = querystring.parse(data)
         next()
     })
 }

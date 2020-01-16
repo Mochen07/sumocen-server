@@ -2,6 +2,7 @@
 * 统一错误处理
 * */
 import Error from "../models/Error"
+import {ResultJsonFormat} from './../config/global-func'
 
 export default (err, req, res, next) => {
     const errLog = new Error({
@@ -10,19 +11,13 @@ export default (err, req, res, next) => {
         errorStack: err.stack
     })
 
+    console.log(errLog)
+
     errLog.save((error, result) => {
         if (error) { // 数据库出错
-            res.json({
-                status: 500,
-                result: '服务器内部错误*',
-                message: error.message
-            })
+            res.json(ResultJsonFormat(501, error.message))
         } else {
-            res.json({
-                status: 500,
-                result: '服务器内部错误',
-                message: err.message
-            })
+            res.json(ResultJsonFormat(500, err.message))
         }
     })
 }

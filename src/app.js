@@ -3,6 +3,7 @@ import config from "./config/config"
 import body_parser from './middle_wares/body_parser'
 import error_log from './middle_wares/error_log'
 import login_pass from './middle_wares/login_pass'
+import {ResultJsonFormat} from './config/global-func'
 
 import IndexRouter from "./routers/index"
 import UserRouter from "./routers/user"
@@ -25,10 +26,7 @@ app.use(UserRouter)
 app.use(error_log)
 // 2.2 配置空路由
 app.use((req, res) => {
-    res.json({
-        status: 404,
-        message: '你怕是迷路了哟！老弟~'
-    })
+    res.json(ResultJsonFormat(404))
 })
 
 // 3. 启动监听

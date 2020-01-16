@@ -1,3 +1,5 @@
+import {ResultJsonFormat} from './../config/global-func'
+
 export default (req, res, next) => {
     // 1. 过滤所有非后端请求(/back权限判断御用字段)
     if (req.path.indexOf('/back') === -1) return next()
@@ -10,8 +12,5 @@ export default (req, res, next) => {
         return next(new Error('没有足够的访问权限!'));
     }
 
-    res.json({
-        status: 204,
-        message: '请先登录'
-    })
+    res.json(ResultJsonFormat(204))
 }
