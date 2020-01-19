@@ -6,6 +6,7 @@ import {ResultJsonFormat} from './../config/global-func'
 // 图片上传
 import formidable from 'formidable'
 import config from "../config/config"
+import {basename} from "path"
 
 // 密码加盐字段
 const S_KEY = 'J*&^IA@Mi_'
@@ -68,7 +69,10 @@ router.post('/api/back/upload', (req, res, next) => {
     form.keepExtensions = true // 保持文件后缀名
     form.parse(req, (err, body, files) => {
         if (err) return next(err);
-        console.log(files) // (未完成)
+        const serverImgName = basename(files.feil.path) // 图片名字
+        const fullPath = config.baseUrl + '/uploads/' + serverImgName // 全路径
+        console.log(fullPath)
+        res.json(ResultJsonFormat(200, {url: fullPath}))
     })
 })
 
