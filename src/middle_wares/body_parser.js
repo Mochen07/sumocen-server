@@ -8,7 +8,8 @@ export default (req, res, next) => {
 
     // 2. 过滤文件(图片, 音视频...) content-type:multipart/form-data
     const contentType = req.headers['content-type']
-    if (contentType.startsWith('multipart/form-data')) return next()
+    // console.log(contentType)
+    if (contentType && contentType.startsWith('multipart/form-data')) return next()
 
     // 3. 普通表单提交 content-type:application/x-www-form-urlencoded
     let data = ''
