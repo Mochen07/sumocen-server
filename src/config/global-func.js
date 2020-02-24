@@ -8,6 +8,9 @@ export const ResultJsonFormat = function(status, data=null){
         case 200:
             if (typeof(data) === 'string') return {status, message: data}
             return {status, data, message: '成功！'}
+        case 201:
+            if (typeof(data) === 'string') return {status, message: data}
+            return {status, data, message: '成功！'}
         case 204:
             return {status, message: '请登录！'}
         case 404:

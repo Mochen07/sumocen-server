@@ -43,12 +43,13 @@ router.post('/api/user/add', (req, res, next) => {
 router.post('/api/back/user/login', (req, res, next) => {
     const data = req.body
     let {nickname, password} = data
+    console.log(data)
 
     // 查询
     User.findOne({nickname: nickname}, (err, user) => {
         if (err) return next(err)
 
-        if (!user) return res.json(ResultJsonFormat(200, '该管理员不存在'))
+        if (!user) return res.json(ResultJsonFormat(201, '该管理员不存在'))
 
         // 处理密码
         password = md5(password + S_KEY) || ''

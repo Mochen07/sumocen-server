@@ -18,7 +18,11 @@ export default (req, res, next) => {
     })
     req.on('end', () => {
         // 处理成json放到body
-        req.body = querystring.parse(data)
+        if (data.indexOf('{')===0) {
+            req.body = JSON.parse(data)
+        }else {
+            req.body = querystring.parse(data)
+        }
         next()
     })
 }
