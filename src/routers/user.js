@@ -53,7 +53,7 @@ router.post('/api/back/user/login', (req, res, next) => {
 
         // 处理密码
         password = md5(password + S_KEY) || ''
-        if (user.password !== password) return res.json(ResultJsonFormat(200, '密码错误'))
+        if (user.password !== password) return res.json(ResultJsonFormat(201, '密码错误'))
 
         res.json(ResultJsonFormat(200, {token: user._id}))
     })
