@@ -60,6 +60,16 @@ router.post('/api/back/user/login', (req, res, next) => {
 })
 
 /*
+* name: 修改管理员信息
+* params: id, name, password, avatar
+* */
+router.post('/api/back/user/modify', (req, res, next) => {
+    const data = req.body
+    // let {nickname, password} = data
+    console.log(data)
+})
+
+/*
 * name: 图片上传
 * params: file
 * */
