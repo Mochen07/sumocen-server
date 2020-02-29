@@ -12,7 +12,7 @@ export const ResultJsonFormat = function(status, data=null){
             if (typeof(data) === 'string') return {status, message: data}
             return {status, data, message: '成功！'}
         case 204:
-            return {status, message: '请登录！'}
+            return {status, message: '没有足够的访问权限！请登录！'}
         case 404:
             return {status, message: '你怕是迷路了哟！老弟~'}
         case 500:

@@ -20,7 +20,9 @@
   "homepage": "https://github.com/Mochen07/sumocen-server#readme",
   "dependencies": {
     "blueimp-md5": "^2.12.0",
+    "connect-mongo": "^3.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "formidable": "^1.2.1",
     "mongoose": "^5.8.7"
   },

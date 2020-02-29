@@ -40,7 +40,7 @@ router.post('/api/user/add', (req, res, next) => {
 * name: 登录
 * params: nickname, password
 * */
-router.post('/api/back/user/login', (req, res, next) => {
+router.post('/api/user/login', (req, res, next) => {
     const data = req.body
     let {nickname, password} = data
     console.log(data)
@@ -55,6 +55,8 @@ router.post('/api/back/user/login', (req, res, next) => {
         password = md5(password + S_KEY) || ''
         if (user.password !== password) return res.json(ResultJsonFormat(201, '密码错误'))
         console.log(user)
+        // session中存token
+        // req.session.token =  user._id;
         res.json(ResultJsonFormat(200, {token: user._id, id: user._id, userName: user.name, account: user.nickname}))
     })
 })
@@ -63,10 +65,20 @@ router.post('/api/back/user/login', (req, res, next) => {
 * name: 修改管理员信息
 * params: id, name, password, avatar
 * */
-router.post('/api/back/user/modify', (req, res, next) => {
+router.post('/api/back/user/update', (req, res, next) => {
     const data = req.body
-    // let {nickname, password} = data
-    console.log(data)
+    let {account, password, userName, headerImg} = data
+    console.log(account, password, userName, headerImg)
+
+    // 查询
+    User.findOne({nickname: account}, (err, user) => {
+        if (err) return next(err)
+
+        if (!user) return res.json(ResultJsonFormat(201, '该管理员不存在'))
+
+        // 处理密码
+        res.json(ResultJsonFormat(200, '信息更新成功'))
+    })
 })
 
 /*
@@ -80,7 +92,7 @@ router.post('/api/back/upload', (req, res, next) => {
     form.keepExtensions = true // 保持文件后缀名
     form.parse(req, (err, body, files) => {
         if (err) return next(err);
-        const serverImgName = basename(files.feil.path) // 图片名字
+        const serverImgName = basename(files.file.path) // 图片名字
         const fullPath = config.baseUrl + '/uploads/' + serverImgName // 全路径
         console.log(fullPath)
         res.json(ResultJsonFormat(200, {url: fullPath}))

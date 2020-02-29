@@ -5,6 +5,7 @@ export default (req, res, next) => {
     if (req.path.indexOf('/back') === -1) return next()
 
     // 2. 判断所有的后端请求是否处于已经登录状态
+    console.log(req.session, '查看权限控制保存信息')
     if(req.session.token) return next()
 
     // 3. 没有登录
