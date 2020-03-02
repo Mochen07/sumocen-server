@@ -103,6 +103,33 @@ router.post('/api/back/user/update', (req, res, next) => {
 })
 
 /*
+* name: 用户菜单配置
+* params: username, password, nickname, avatar
+* */
+router.post('/api/back/user/menus', (req, res, next) => {
+    const data = req.body
+    let {username, menus} = data
+    console.log(username, menus)
+
+    // 查询
+    User.findOne({username: username}, (err, user) => {
+        if (err) return next(err)
+
+        if (!user) return res.json(ResultJsonFormat(201, '该管理员不存在'))
+
+        user.menus = menus
+
+        user.save((err, result) => {
+            if (err) return next(err)
+
+            console.log(result)
+
+            res.json(ResultJsonFormat(200, {menus: user.menus}))
+        })
+    })
+})
+
+/*
 * name: 图片上传
 * params: file
 * */
