@@ -3,11 +3,11 @@
 * */
 
 // 返回数据结构
-export const ResultJsonFormat = function(status, data=null){
+export const ResultJsonFormat = function(status, data=null, message=null){
     switch (status) {
         case 200:
             if (typeof(data) === 'string') return {status, message: data}
-            return {status, data, message: '成功！'}
+            return {status, data, message: message || '成功！'}
         case 201:
             if (typeof(data) === 'string') return {status, message: data}
             return {status, data, message: '成功！'}

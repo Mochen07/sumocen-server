@@ -9,9 +9,9 @@ mongoose.connection.on('error', (err) => {
 
 // 用户User
 const userSchema = mongoose.Schema({
-    nickname: {type: String, required: true}, // 呢称
-    name: {type: String, default: '芸芸众生'}, // 姓名
+    username: {type: String, required: true}, // 用户名
     password: {type: String, required: true}, // 密码
+    nickname: {type: String, default: '芸芸众生'}, // 呢称
     avatar: {type: String, required: false}, // 头像
     phone: {type: Number, required: false}, // 手机
     email: {type: String, required: false}, // 邮箱

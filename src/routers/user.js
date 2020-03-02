@@ -13,20 +13,20 @@ const S_KEY = 'J*&^IA@Mi_'
 
 /*
 * name: 生成后台管理员
-* params: nickname, password
+* params: username, password
 * */
 router.post('/api/user/add', (req, res, next) => {
     const data = req.body
-    let {nickname, password} = data
-    if (!nickname) return res.json(ResultJsonFormat(200, '请输入用户昵称'))
-    User.findOne({nickname: nickname}, (err, user) => {
+    let {username, password} = data
+    if (!username) return res.json(ResultJsonFormat(200, '请输入用户昵称'))
+    User.findOne({username: username}, (err, user) => {
         if (user) {
             res.json(ResultJsonFormat(200, '该管理员已存在'))
         } else {
             // 处理密码
             password = md5(password + S_KEY) || ''
 
-            const user = new User({nickname, password})
+            const user = new User({username, password})
 
             user.save((err, result) => {
                 if (err) return next(err)
@@ -38,15 +38,15 @@ router.post('/api/user/add', (req, res, next) => {
 
 /*
 * name: 登录
-* params: nickname, password
+* params: username, password
 * */
 router.post('/api/user/login', (req, res, next) => {
     const data = req.body
-    let {nickname, password} = data
+    let {username, password} = data
     console.log(data)
 
     // 查询
-    User.findOne({nickname: nickname}, (err, user) => {
+    User.findOne({username: username}, (err, user) => {
         if (err) return next(err)
 
         if (!user) return res.json(ResultJsonFormat(201, '该管理员不存在'))
@@ -57,27 +57,48 @@ router.post('/api/user/login', (req, res, next) => {
         console.log(user)
         // session中存token
         // req.session.token =  user._id;
-        res.json(ResultJsonFormat(200, {token: user._id, id: user._id, userName: user.name, account: user.nickname}))
+        res.json(ResultJsonFormat(200, {
+            token: user._id,
+            id: user._id,
+            username: user.username,
+            nickname: user.nickname,
+            avatar: user.avatar
+        }))
     })
 })
 
 /*
 * name: 修改管理员信息
-* params: id, name, password, avatar
+* params: username, password, nickname, avatar
 * */
 router.post('/api/back/user/update', (req, res, next) => {
     const data = req.body
-    let {account, password, userName, headerImg} = data
-    console.log(account, password, userName, headerImg)
+    let {username, password, nickname, avatar} = data
+    console.log(username, password, nickname, avatar)
 
     // 查询
-    User.findOne({nickname: account}, (err, user) => {
+    User.findOne({username: username}, (err, user) => {
         if (err) return next(err)
 
         if (!user) return res.json(ResultJsonFormat(201, '该管理员不存在'))
 
-        // 处理密码
-        res.json(ResultJsonFormat(200, '信息更新成功'))
+        console.log(user)
+        user.password = md5(password + S_KEY) || ''
+        user.nickname = nickname
+        user.avatar = avatar
+        user.save((err, result) => {
+            if (err) return next(err)
+
+            console.log(result)
+
+            res.json(ResultJsonFormat(200, {
+                token: user._id,
+                id: user._id,
+                username: user.username,
+                nickname: user.nickname,
+                avatar: user.avatar
+            }, '信息更新成功'))
+        })
     })
 })
 
