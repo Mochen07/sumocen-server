@@ -6,6 +6,8 @@ npm install --save express // 基石
 npm install mongoose --save // mongoose
 npm install blueimp-md5 --save // md5
 npm install formidable --save // 图片上传
+npm install express-session --save // 配置session进行权限控制
+npm install connect-mongo --save // 配置session进行权限控制
 
 npm install babel-preset-env --save-dev // babel
 npm i babel-register --save-dev // babel
