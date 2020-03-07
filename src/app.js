@@ -12,6 +12,7 @@ const mongoStore = require('connect-mongo')(session);
 
 import IndexRouter from "./routers/index"
 import UserRouter from "./routers/user"
+import SwiperRouter from "./routers/swiper"
 
 // 创建服务器
 const app = express()
@@ -49,6 +50,7 @@ app.use(body_parser)
 // 2. 挂载路由
 app.use(IndexRouter)
 app.use(UserRouter)
+app.use(SwiperRouter)
 // 2.1 挂载错误日志中间件
 app.use(error_log)
 // 2.2 配置空路由

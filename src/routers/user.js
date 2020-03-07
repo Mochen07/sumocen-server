@@ -86,6 +86,7 @@ router.post('/api/back/user/update', (req, res, next) => {
         user.password = md5(password + S_KEY) || ''
         user.nickname = nickname
         user.avatar = avatar
+        user.lastEditDate = Data.now()
         user.save((err, result) => {
             if (err) return next(err)
 
@@ -133,6 +134,7 @@ router.post('/api/back/user/menus', (req, res, next) => {
         if (!user) return res.json(ResultJsonFormat(201, '该管理员不存在'))
 
         user.menus = menus
+        user.lastEditDate = Data.now()
 
         user.save((err, result) => {
             if (err) return next(err)

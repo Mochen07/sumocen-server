@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     avatar: {type: String, required: false}, // 头像
     phone: {type: Number, required: false}, // 手机
     email: {type: String, required: false}, // 邮箱
-    joinDate: {type: Date, required: false}, // 添加时间
+    joinDate: {type: Date, default: Date.now()}, // 添加时间
     lastEditDate: {type: Date, default: Date.now()}, // 添加时间
     menus: {type: Array, required: false}, // 当前用户菜单
 })
