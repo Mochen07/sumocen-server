@@ -45,4 +45,33 @@ router.post('/api/back/swiper/edit', (req, res, next) => {
     })
 })
 
+/*
+* name: 获取swiper列表
+* params: get
+* */
+router.get('/api/back/swiper/list', (req, res, next) => {
+    Swiper.find((err, swiperList) => {
+        if (err) return next(err)
+        res.json(ResultJsonFormat(200, swiperList))
+    })
+})
+
+/*
+* name: 删除指定swiper数据
+* params: id
+* */
+router.post('/api/back/swiper/remove', (req, res, next) => {
+    const data = req.body
+    let {id} = data
+    if (!id) return res.json(ResultJsonFormat(201, '请选择修改的swiper的id'))
+    Swiper.findByIdAndDelete(id,(err, removeData) => {
+        if (err) return next(err)
+        if (!removeData) {
+            res.json(ResultJsonFormat(200, '已经删除过啦！'))
+        } else {
+            res.json(ResultJsonFormat(200, '删除成功！'))
+        }
+    })
+})
+
 export default router
