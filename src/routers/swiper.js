@@ -49,8 +49,8 @@ router.post('/api/back/swiper/edit', (req, res, next) => {
 * name: 获取swiper列表
 * params: get
 * */
-router.get('/api/back/swiper/list', (req, res, next) => {
-    Swiper.find((err, swiperList) => {
+router.get('/api/swiper/list', (req, res, next) => {
+    Swiper.find(null, 'name url info link', (err, swiperList) => {
         if (err) return next(err)
         res.json(ResultJsonFormat(200, swiperList))
     })
