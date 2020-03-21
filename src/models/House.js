@@ -1,6 +1,8 @@
+import mongoose from 'mongoose'
+
 // House
 const houseSchema = mongoose.Schema({
-    pictureList: {type: Array, required: true}, // 照片组
+    pictureList: {type: Array, required: false}, // 照片组
     province: {type: String, default: '未定义'}, // 详细地址
     address: {type: String, default: '未定义'}, // 省
     city: {type: String, default: '未定义'}, // 市
