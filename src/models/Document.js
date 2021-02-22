@@ -1,17 +1,14 @@
 import mongoose from 'mongoose'
 
-// House
+// Document
 const documentSchema = mongoose.Schema({
-    name: {type: String, required: false}, // 照片组
-    province: {type: String, default: '未定义'}, // 详细地址
-    address: {type: String, default: '未定义'}, // 省
-    city: {type: String, default: '未定义'}, // 市
-    area: {type: String, required: false}, // 区
-    plot: {type: String, default: '未定义'}, // 小区
-    price: {type: Number, required: false}, // 价格
-    grade: {type: Number, required: false}, // 评分
+    title: {type: String, required: false}, // 文章名称
+    content: {type: String, default: 'empty'}, // 文章内容
+    classify: {type: String, default: '00'}, // 所属分类
+    viewCount: {type: Number, default: 0}, // 浏览次数
+    lickCount: {type: Number, default: 0}, // 点赞次数
     joinDate: {type: Date, default: Date.now()}, // 添加时间
-    lastEditDate: {type: Date, default: Date.now()}, // 添加时间
+    lastEditDate: {type: Date, default: Date.now()}, // 最后编辑时间
 })
 
 const Document = mongoose.model('document', documentSchema)
