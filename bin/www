@@ -2,6 +2,7 @@ const app = require('../app')
 const http = require('http')
 const config = require('../config')
 
+// 此功能是一个安全护栏，以确保提供的端口是 number , 如果不是数字，则为 string如果有任何其他事情将其设置为false。
 const port = normalizePort(process.env.PORT || config.port)
 
 const server = http.createServer(app.callback())

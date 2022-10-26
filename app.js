@@ -1,9 +1,11 @@
 'use strict'
 
 const Koa = require('koa')
+// 将post请求的参数转为json格式
 const bodyParser = require('koa-bodyparser')()
 const staticCache = require('koa-static-cache')
 const cors = require('koa2-cors')
+// 设置Http头保障应用程序安全
 const helmet = require("koa-helmet")
 
 const config = require('./config')
