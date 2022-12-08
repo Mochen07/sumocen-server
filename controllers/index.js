@@ -11,5 +11,4 @@ for (const file of files) {
     controllers[`${file.replace(/\.js/, '')}`] = controller
   }
 }
-
 module.exports = controllers

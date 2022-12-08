@@ -5,7 +5,9 @@ const path = require('path')
 const log4js = require('log4js')
 const config = require('../config')
 
+// 获取log文件所在的文件夹路径
 const logsDir = path.parse(config.logPath).dir
+// 同步检查给定路径中是​​否已存在文件
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir)
 }
