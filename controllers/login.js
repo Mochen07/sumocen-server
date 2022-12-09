@@ -38,7 +38,7 @@ login.login = async (ctx, next) => {
     })
     if (!user) {
         ctx.result = ''
-        ctx.msg = '用户不存在'
+        ctx.msg = '用户名或密码不正确'
     } else {
         ctx.result = jwt.sign({
             data: user._id,

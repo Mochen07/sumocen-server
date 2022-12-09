@@ -1,3 +1,4 @@
+// controllers处理前端参数校验，数据库存值筛选，消息提示信息处理
 'use strict'
 
 const fs = require('fs')
