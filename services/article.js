@@ -4,6 +4,8 @@ const article = {
   // 新增文章
   async addEdit (data) {
     if (data._id) { // 编辑
+      const isRepetitionTitle = await Article.findOne({_id: {$ne: data._id}, title: data.title})
+      if (isRepetitionTitle&&isRepetitionTitle.length) {return false}
       let result = await Article.update(
         {_id: data._id},
         {

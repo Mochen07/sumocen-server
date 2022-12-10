@@ -9,12 +9,15 @@ article.addEdit = async (ctx, next) => {
   })
   if (!current) {
     ctx.result = title
-    ctx.msg = '标题重复'
+    ctx.msg = '标题已存在'
     return next()
   }
   if (current.id) { // 新增
     ctx.result = current
     ctx.msg = '添加成功'
+  } else if (current.n===0) {
+    ctx.result = _id
+    ctx.msg = '未找到需要更新的内容'
   } else {
     ctx.result = _id
     ctx.msg = '编辑成功'
