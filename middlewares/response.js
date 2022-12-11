@@ -4,13 +4,24 @@ const { logger } = require('./logger')
 
 // 这个middleware用于将ctx.result中的内容最终回传给客户端
 // 回传的格式遵循这样的格式：{ code: 0, msg: any data: any }
+/**
+ * responseHandler
+ * @description 统一接口返回格式
+ * @param {*} code: 200 成功 404 服务器未处理
+ */
 const responseHandler = (ctx) => {
   if (ctx.result !== undefined) {
-    ctx.type = 'json'
+    ctx.type = ctx.type || 'json'
     ctx.body = {
-      code: 200,
+      code: ctx.code || 200,
       msg: ctx.msg || '',
       data: ctx.result
+    }
+  } else {
+    ctx.type = 'json'
+    ctx.body = {
+      code: 404,
+      msg: 'result undefined',
     }
   }
 }

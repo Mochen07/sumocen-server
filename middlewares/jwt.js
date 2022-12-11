@@ -17,5 +17,5 @@ module.exports = function (ctx, next) {
   } catch (err) {
     throw {code: 401, message: err.message}
   }
-  next()
+  return next()
 }
