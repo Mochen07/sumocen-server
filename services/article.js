@@ -26,6 +26,11 @@ const article = {
       return result
     }
   },
+  // banner
+  async bannerList () {
+    let result = await Article.find({},{_id:1,title:1,poster:1,createdTime:1}).limit(7).sort({createdTime:-1})
+    return result
+  }
 }
 
 module.exports = article

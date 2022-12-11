@@ -2,6 +2,7 @@
 const articleServices = require('../services').article
 const article = {}
 
+// 新增编辑
 article.addEdit = async (ctx, next) => {
   const {title, description, content, poster, tag, keywords, _id} = ctx.request.body
   const current = await articleServices.addEdit({
@@ -22,6 +23,13 @@ article.addEdit = async (ctx, next) => {
     ctx.result = _id
     ctx.msg = '编辑成功'
   }
+  return next()
+}
+
+// banner
+article.bannerList = async (ctx, next) => {
+  const current = await articleServices.bannerList()
+  ctx.result = current
   return next()
 }
 
