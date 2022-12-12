@@ -14,7 +14,7 @@ const responseHandler = (ctx) => {
     ctx.type = ctx.type || 'json'
     ctx.body = {
       code: ctx.code || 200,
-      msg: ctx.msg || '',
+      msg: ctx.msg || '请求成功',
       data: ctx.result
     }
   } else {

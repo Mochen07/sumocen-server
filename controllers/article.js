@@ -33,4 +33,12 @@ article.bannerList = async (ctx, next) => {
   return next()
 }
 
+// list
+article.list = async (ctx, next) => {
+  const {page} = ctx.request.query
+  const current = await articleServices.list(Number(page))
+  ctx.result = current
+  return next()
+}
+
 module.exports = article

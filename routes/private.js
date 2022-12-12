@@ -10,6 +10,7 @@ router.use(jwtMiddleware)
 
 // article
 router.post('/article/addEdit', controllers.article.addEdit)
-router.post('/article/bannerList', controllers.article.bannerList)
+router.get('/article/bannerList', controllers.article.bannerList)
+router.get('/article/list', controllers.article.list)
 
 module.exports = router

@@ -30,6 +30,18 @@ const article = {
   async bannerList () {
     let result = await Article.find({},{_id:1,title:1,poster:1,createdTime:1}).limit(7).sort({createdTime:-1})
     return result
+  },
+  // list
+  async list (page) {
+    let data = await Article.find({}, {_id:1,title:1,description:1,poster:1,views:1,likes:1,comment:1,updatedTime:1}).skip((page-1)*10).limit (10)
+    let total = await Article.find().count()
+    return {
+      data,
+      pagination: {
+        currentPage: page,
+        total,
+      }
+    }
   }
 }
 
