@@ -9,4 +9,9 @@ router.prefix('/api')
 router.post('/user/login', controllers.login.login)
 router.post('/user/register', controllers.login.register)
 
+// article
+router.get('/article/bannerList', controllers.article.bannerList)
+router.get('/article/list', controllers.article.list)
+router.post('/article/like', controllers.article.like)
+
 module.exports = router

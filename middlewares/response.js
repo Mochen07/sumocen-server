@@ -2,12 +2,11 @@
 
 const { logger } = require('./logger')
 
-// 这个middleware用于将ctx.result中的内容最终回传给客户端
-// 回传的格式遵循这样的格式：{ code: 0, msg: any data: any }
 /**
- * responseHandler
  * @description 统一接口返回格式
- * @param {*} code: 200 成功 404 服务器未处理
+ * @param ctx
+ * @return { code: 0, msg: any data: any }
+ * @todo code: 200 成功 204 服务器未处理; ctx.result中的内容最终回传给客户端
  */
 const responseHandler = (ctx) => {
   if (ctx.result !== undefined) {
@@ -20,14 +19,18 @@ const responseHandler = (ctx) => {
   } else {
     ctx.type = 'json'
     ctx.body = {
-      code: 404,
+      code: 204,
       msg: 'result undefined',
     }
   }
 }
 
-// 这个middleware处理在其它middleware中出现的异常
-// 并将异常消息回传给客户端：{ code: '错误代码', msg: '错误信息' }
+/**
+ * @description 统一接口返回格式
+ * @param ctx next
+ * @return { code: error code, msg: error info }
+ * @todo code: 200 成功 404 服务器未处理; 处理在其它middleware中出现的异常
+ */
 const errorHandler = (ctx, next) => {
   return next().catch(err => {
     if (err.code == null) {

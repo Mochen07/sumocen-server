@@ -32,16 +32,26 @@ const article = {
     return result
   },
   // list
-  async list (page) {
-    let data = await Article.find({}, {_id:1,title:1,description:1,poster:1,views:1,likes:1,comment:1,updatedTime:1}).skip((page-1)*10).limit (10)
+  async list (data) {
+    let list = await Article.find({}, {_id:1,title:1,description:1,poster:1,views:1,likes:1,comment:1,updatedTime:1}).skip((data.page-1)*10).limit(10)
     let total = await Article.find().count()
     return {
-      data,
+      list,
       pagination: {
-        currentPage: page,
+        currentPage: data.page,
         total,
       }
     }
+  },
+  // like
+  async like (data) {
+    let result = await Article.update(
+      {_id: data._id},
+      {
+        $inc: {likes: 1}
+      }
+    )
+    return result
   }
 }
 
