@@ -56,4 +56,12 @@ article.like = async (ctx, next) => {
   return next()
 }
 
+// detail
+article.detail = async (ctx, next) => {
+  const {_id} = ctx.request.body
+  const result = await articleServices.detail({_id})
+  ctx.result = result
+  return next()
+}
+
 module.exports = article

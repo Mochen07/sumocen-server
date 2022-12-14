@@ -52,7 +52,18 @@ const article = {
       }
     )
     return result
-  }
+  },
+  // detail
+  async detail (data) {
+    let result = await Article.findOne({_id: data._id})
+    await Article.update(
+      {_id: data._id},
+      {
+        $inc: {views: 1}
+      }
+    )
+    return result
+  },
 }
 
 module.exports = article

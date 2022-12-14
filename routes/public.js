@@ -13,5 +13,6 @@ router.post('/user/register', controllers.login.register)
 router.get('/article/bannerList', controllers.article.bannerList)
 router.get('/article/list', controllers.article.list)
 router.post('/article/like', controllers.article.like)
+router.post('/article/detail', controllers.article.detail)
 
 module.exports = router
