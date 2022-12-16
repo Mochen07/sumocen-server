@@ -12,5 +12,6 @@ router.use(jwtMiddleware)
 router.post('/article/addEdit', controllers.article.addEdit)
 // tag
 router.post('/tag/addEdit', controllers.tag.addEdit)
+router.get('/tag/list', controllers.tag.list)
 
 module.exports = router

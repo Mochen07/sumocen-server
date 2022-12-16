@@ -27,4 +27,11 @@ tag.addEdit = async (ctx, next) => {
   return next()
 }
 
+// 列表
+tag.list = async (ctx, next) => {
+  const result = await tagServices.list()
+  ctx.result = result
+  return next()
+}
+
 module.exports = tag

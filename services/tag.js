@@ -26,6 +26,11 @@ const tag = {
       return result
     }
   },
+  // 列表
+  async list () {
+    let result = await Tag.find({}, {_id:1,name:1,icon:1})
+    return result
+  }
 }
 
 module.exports = tag
