@@ -13,7 +13,7 @@ article.addEdit = async (ctx, next) => {
     ctx.msg = '标题已存在'
     return next()
   }
-  if (result.id) { // 新增
+  if (result._id) { // 新增
     ctx.result = result
     ctx.msg = '添加成功'
   } else if (result.n===0) {

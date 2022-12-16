@@ -3,7 +3,7 @@
 module.exports = {
   name: 'article',
   schema: {
-    uuid: String, // uuid
+    id: Number, // uuid
     title: { type: String, unique: true }, // 标题
     description: String, // 表述
     content: String, // 富文本内容
