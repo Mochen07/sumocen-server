@@ -19,7 +19,7 @@ const responseHandler = (ctx) => {
   } else {
     ctx.type = 'json'
     ctx.body = {
-      code: 204,
+      code: 404,
       msg: 'result undefined',
     }
   }
