@@ -1,8 +1,8 @@
 'use strict'
 
 const Koa = require('koa')
-// 将post请求的参数转为json格式
-const bodyParser = require('koa-bodyparser')()
+// 将post请求的参数转为json格式, 文件内容解析
+const {koaBody} = require('koa-body')
 const staticCache = require('koa-static-cache')
 const cors = require('koa2-cors')
 // 设置Http头保障应用程序安全
@@ -16,7 +16,7 @@ const { errorHandler, responseHandler } = require('./middlewares/response')
 const { corsHandler } = require('./middlewares/cors')
 
 const app = new Koa()
-// console.log(process.env.NODE_ENV)
+console.log(process.env.NODE_ENV)
 // Logger
 app.use(loggerMiddleware)
 
@@ -24,7 +24,7 @@ app.use(loggerMiddleware)
 app.use(errorHandler)
 
 // Global Middlewares
-app.use(bodyParser)
+app.use(koaBody({ multipart: true }))
 app.use(staticCache(config.publicDir))
 
 // Helmet

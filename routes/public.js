@@ -6,8 +6,8 @@ const controllers = require('../controllers')
 const router = new Router()
 router.prefix('/api')
 // user
-router.post('/user/login', controllers.login.login)
-router.post('/user/register', controllers.login.register)
+router.post('/user/login', controllers.user.login)
+router.post('/user/register', controllers.user.register)
 
 // article
 router.get('/article/bannerList', controllers.article.bannerList)

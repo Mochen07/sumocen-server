@@ -43,7 +43,7 @@ login.login = async (ctx, next) => {
         ctx.result = jwt.sign({
             data: user._id,
             // 设置 token 过期时间 60 seconds * 60 minutes = 1 hour
-            exp: Math.floor(Date.now() / 1000) + (60 * 60),
+            exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
         }, config.secret)
         ctx.msg = '登录成功'
     }
