@@ -1,39 +1,33 @@
 const fs = require("fs");
-const path = require('path')
+const config = require("../config");
+const UploadServices = require('../services').upload
 const tool = {}
-const uploadUrl = "http://localhost:3001/public/upload";
 
 tool.upload = async (ctx, next) => {
   // 获取上传文件
   const file = ctx.request.files.file
-  // 创建可读流
-  const fileReader = fs.createReadStream(file.filepath)
-  // 设置文件保存路径 + originalFilename = 组装成绝对路径
-  const filePath = path.join(__dirname, '/public/upload/')
-  const fileResource = filePath + `/${file.originalFilename}`
-  // 使用 createWriteStream 写入数据，然后使用管道流pipe拼接
-  const writeStream = fs.createWriteStream(fileResource)
-  // 写入文件方法
-  function fileReaderFunc () {
-    fileReader.pipe(writeStream);
-    ctx.body = {
-      url: uploadUrl + `/${file.originalFilename}`,
-      code: 0,
-      message: '上传成功'
-    };
+  let path = file.filepath;
+  let fname = file.originalFilename; // 原文件名称
+  let newName = file.newFilename; // 新文件名称
+  let semiPath = newName // 半路经
+  let ext = '*' // 文件拓展名默认
+  if(file.size>0 && path){
+    //得到扩展名
+    let extArr = fname.split('.');
+    ext = extArr[extArr.length-1];
+    let nextPath = path+'.'+ext;
+    //重命名文件
+    fs.renameSync(path, nextPath);
+    semiPath = semiPath+'.'+ext
   }
-  // 判断 /static/upload 文件夹是否存在，如果不在的话就创建一个
-  if (!fs.existsSync(filePath)) {
-    fs.mkdir(filePath, (err) => {
-      if (err) {
-        throw new Error(err);
-      } else {
-        fileReaderFunc()
-      }
-    });
-  } else {
-    fileReaderFunc()
+  const fileInfo = {
+    name: fname,
+    size: file.size,
+    ext: ext,
+    url: config.uploadHost + semiPath,
   }
+  const result = await UploadServices.addUploadInfo(fileInfo)
+  ctx.result = result
   return next()
 }
 

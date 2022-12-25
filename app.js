@@ -2,8 +2,8 @@
 
 const Koa = require('koa')
 // 将post请求的参数转为json格式, 文件内容解析
-const {koaBody} = require('koa-body')
-const staticCache = require('koa-static-cache')
+const { koaBody } = require('koa-body')
+const koaStatic = require('koa-static')
 const cors = require('koa2-cors')
 // 设置Http头保障应用程序安全
 const helmet = require("koa-helmet")
@@ -24,8 +24,13 @@ app.use(loggerMiddleware)
 app.use(errorHandler)
 
 // Global Middlewares
-app.use(koaBody({ multipart: true }))
-app.use(staticCache(config.publicDir))
+app.use(koaBody({ 
+  formidable: {
+    uploadDir: config.uploadDir
+  },
+  multipart: true
+}))
+app.use(koaStatic(config.publicDir))
 
 // Helmet
 app.use(helmet())

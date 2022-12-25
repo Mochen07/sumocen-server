@@ -7,6 +7,8 @@ module.exports = {
   secret: '%s$u@m^o&c*e)n',
   publicDir: path.resolve(__dirname, './public'),
   logPath: path.resolve(__dirname, './logs/koa-template.log'),
+  uploadDir: path.resolve(__dirname, './public/uploads'),
+  uploadHost: "http://localhost:3000/uploads/", // 需优化加入环境变量
   mongoDB: {
     database: 'survey', // 自我勘察
     username: 'root',
