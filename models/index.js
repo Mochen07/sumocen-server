@@ -22,7 +22,7 @@ mongo.on('error', function (err) {
 });
 // 开启
 mongo.once('open', function () {
-    logger.info("数据库已连接");
+    logger.info("mongoose open");
 });
 // 整合models文件下的其他js文件
 fs.readdirSync(__dirname)
