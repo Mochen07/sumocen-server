@@ -8,18 +8,9 @@ article.addEdit = async (ctx, next) => {
   const result = await articleServices.addEdit({
     title, description, content, poster, tag, keywords, _id
   })
-  if (!result) {
-    ctx.result = title
-    ctx.msg = '标题已存在'
-    return next()
-  }
   if (result._id) { // 新增
     ctx.result = result
     ctx.msg = '添加成功'
-  } else if (result.n===0) {
-    ctx.result = _id
-    ctx.code = 202
-    ctx.msg = '未找到需要更新的内容'
   } else {
     ctx.result = _id
     ctx.msg = '编辑成功'

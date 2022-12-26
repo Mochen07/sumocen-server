@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 const userServices = require('../services').user
-const { InvalidQueryError } = require('../lib/error')
+const { InvalidQueryError, AcceptedError } = require('../lib/error')
 const login = {}
 
 // 注册
@@ -17,8 +17,7 @@ login.register = async (ctx, next) => {
   })
   // result 1 用户已注册
   if (!user) {
-    ctx.result = '1'
-    ctx.msg = '用户已注册'
+    throw new AcceptedError('用户已注册')
   } else {
     ctx.result = user
     ctx.msg = '注册成功'

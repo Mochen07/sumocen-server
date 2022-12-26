@@ -1,9 +1,13 @@
 const fs = require("fs");
 const config = require("../config");
 const UploadServices = require('../services').upload
+const { InvalidQueryError } = require('../lib/error')
 const tool = {}
 
 tool.upload = async (ctx, next) => {
+  if (!(ctx.request.files&&ctx.request.files.file)) {
+    throw new InvalidQueryError()
+  }
   // 获取上传文件
   const file = ctx.request.files.file
   let path = file.filepath;

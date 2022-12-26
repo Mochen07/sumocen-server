@@ -1,11 +1,14 @@
 const Article = require('../models/index').getModel('article')
+const { InvalidQueryError, AcceptedError } = require('../lib/error')
 
 const article = {
   // 新增文章
   async addEdit (data) {
     if (data._id) { // 编辑
       const isOnly = await Article.findOne({_id: {$ne: data._id}, title: data.title})
-      if (isOnly&&isOnly.length) {return false}
+      if (isOnly&&isOnly.length) {
+        throw new InvalidQueryError('标题已存在')
+      }
       let result = await Article.update(
         {_id: data._id},
         {
@@ -15,10 +18,13 @@ const article = {
           }
         }
       )
+      if (result.n===0) {
+        throw new AcceptedError('未找到需要更新的内容')
+      }
       return result
     } else {// 新增
       const isOnly = await Article.findOne({title: data.title})
-      if (isOnly) { return false }
+      if (isOnly) { throw new InvalidQueryError('标题已存在') }
       let current = new Article({
         ...data
       })
