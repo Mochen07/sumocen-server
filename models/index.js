@@ -4,6 +4,10 @@ const mongoose = require('mongoose');    //引用mongoose模块
 const config = require('../config')
 const { logger } = require('../middlewares/logger')
 
+mongoose.set('useNewUrlParser', true)
+mongoose.set('useCreateIndex', true)
+mongoose.set('useUnifiedTopology', true)
+
 let url = "mongodb://" + config.mongoDB.host + ":" + config.mongoDB.port + "/" + config.mongoDB.database;
 var mongo = mongoose.createConnection(url); //创建一个数据库连接
 
@@ -18,7 +22,7 @@ mongo.on('error', function (err) {
 });
 // 开启
 mongo.once('open', function () {
-    logger.info("mongo is opened");
+    logger.info("数据库已连接");
 });
 // 整合models文件下的其他js文件
 fs.readdirSync(__dirname)

@@ -16,7 +16,7 @@ const { errorHandler, responseHandler } = require('./middlewares/response')
 const { corsHandler } = require('./middlewares/cors')
 
 const app = new Koa()
-console.log(process.env.NODE_ENV)
+console.log('环境', process.env.NODE_ENV)
 // Logger
 app.use(loggerMiddleware)
 
