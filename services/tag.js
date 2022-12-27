@@ -1,4 +1,6 @@
 const Tag = require('../models/index').getModel('tag')
+const Article = require('../models/index').getModel('article')
+
 
 const tag = {
   // 新增编辑
@@ -29,6 +31,11 @@ const tag = {
   // 列表
   async list () {
     let result = await Tag.find({}, {_id:1,name:1,icon:1})
+    if (result && result.length) {
+      for (let i = 0; i < result.length; i++) {
+        result[i]._doc.useNum = await Article.find({tag: {$in: [String(result[i]._doc._id)]}}).count()
+      }
+    }
     return result
   }
 }
