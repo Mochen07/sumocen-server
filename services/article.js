@@ -41,7 +41,7 @@ const article = {
   // list
   async list (data) {
     const list = await Article.find({}, {_id:1,title:1,description:1,poster:1,views:1,likes:1,comment:1,updatedTime:1}).skip((data.page-1)*10).limit(10)
-    const total = await Article.find().count()
+    const total = await Article.find().countDocuments()
     return {
       list,
       pagination: {
