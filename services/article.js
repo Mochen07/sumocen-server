@@ -1,4 +1,5 @@
 const Article = require('../models/index').getModel('article')
+const Tag = require('../models/index').getModel('tag')
 const { InvalidQueryError, AcceptedError } = require('../lib/error')
 
 const article = {
@@ -62,7 +63,7 @@ const article = {
   // detail
   async detail (data) {
     const result = await Article.findOne({_id: data._id})
-    await Article.update(
+    await Article.updateOne(
       {_id: data._id},
       {
         $inc: {views: 1}
@@ -70,11 +71,24 @@ const article = {
     )
     const nextArticle = await Article.findOne({ _id: { $gt: data._id } }, {title:1}).sort({createdTime: 1})
     const lastArticle = await Article.findOne({ _id: { $lt: data._id } }, {title:1}).sort({createdTime: -1})
+    const correlationArticle = await Article.find({_id: {$ne: data._id},tag: {$in: [...result.tag]}}, {title:1, description: 1, poster: 1}).sort({createdTime: 1}).limit(6)
+
+    // 标签id转详情
+    let tdList = []
+    if (result.tag&&result.tag.length>0) {
+      for (let i=0;i<result.tag.length;i++) {
+        const td = await Tag.findOne({_id: result.tag[i]},{name: 1, icon: 1,})
+        tdList.push(td)
+      }
+    }
+    result.tag = tdList
+
     return {
-      data: result,
+      info: result,
       other: {
         nextArticle,
         lastArticle,
+        correlationArticle,
       }
     }
   },
