@@ -8,12 +8,12 @@ const login = {}
 
 // 注册
 login.register = async (ctx, next) => {
-  const {userName, password} = ctx.request.body
-  if (!userName || !password) {
+  const {username, password} = ctx.request.body
+  if (!username || !password) {
     throw new InvalidQueryError()
   }
   const user = await userServices.add({
-    userName, password,
+    username, password,
   })
   // result 1 用户已注册
   if (!user) {
@@ -27,12 +27,12 @@ login.register = async (ctx, next) => {
 
 // 登录
 login.login = async (ctx, next) => {
-    const {userName, password} = ctx.request.body
-    if (!userName || !password) {
+    const {username, password} = ctx.request.body
+    if (!username || !password) {
         throw new InvalidQueryError()
     }
     const user = await userServices.login({
-        userName: userName,
+        username: username,
         password: password
     })
     if (!user) {

@@ -12,7 +12,7 @@ const user = {
         return false
       }
       let current = new User()
-      current.userName = data.userName
+      current.username = data.username
       current.password = data.password
       let result = await current.save()
       return result
