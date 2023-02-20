@@ -18,15 +18,15 @@ module.exports = {
     max_memory_restart: '1G',
     env_pro: {
       "NODE_ENV": "production",
-      "REMOTE_ADDR": ""
+      "BASE_URL": "未配置"
     },
     env_dev: {
       "NODE_ENV": "development",
-      "REMOTE_ADDR": ""
+      "BASE_URL": "http://localhost:3000"
     },
     env_test: {
       "NODE_ENV": "test",
-      "REMOTE_ADDR": ""
+      "BASE_URL": "未配置"
     }
   }]
 };
