@@ -40,8 +40,8 @@ const article = {
   },
   // list
   async list (data) {
-    const list = await Article.find({}, {_id:1,title:1,description:1,poster:1,views:1,likes:1,comment:1,updatedTime:1}).skip((data.page-1)*10).limit(10)
-    const total = await Article.find().countDocuments()
+    const list = await Article.find({recycle:false}, {_id:1,title:1,description:1,poster:1,views:1,likes:1,comment:1,updatedTime:1}).skip((data.page-1)*10).limit(10)
+    const total = await Article.find({recycle:false}).countDocuments()
     return {
       list,
       pagination: {
@@ -63,6 +63,11 @@ const article = {
   // detail
   async detail (data) {
     const result = await Article.findOne({_id: data._id})
+    // 只需要详情的返回
+    if (['edit'].includes(data.type)) {
+      return result
+    }
+
     await Article.updateOne(
       {_id: data._id},
       {
@@ -91,6 +96,19 @@ const article = {
         correlationArticle,
       }
     }
+  },
+  // delete
+  async delete (data) {
+    const result = await Article.updateOne(
+      {_id: data._id},
+      {
+        $set: {recycle: true}
+      }
+    )
+    if (result.n===0) {
+      throw new AcceptedError('未找到需要删除的内容')
+    }
+    return result
   },
 }
 

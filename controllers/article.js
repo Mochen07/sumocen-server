@@ -49,8 +49,16 @@ article.like = async (ctx, next) => {
 
 // detail
 article.detail = async (ctx, next) => {
+  const {_id, type} = ctx.request.body
+  const result = await articleServices.detail({_id, type})
+  ctx.result = result
+  return next()
+}
+
+// delete
+article.delete = async (ctx, next) => {
   const {_id} = ctx.request.body
-  const result = await articleServices.detail({_id})
+  const result = await articleServices.delete({_id})
   ctx.result = result
   return next()
 }

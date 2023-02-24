@@ -15,5 +15,6 @@ module.exports = {
     comment: { type: Number, default: 0 }, // 评论量
     createdTime: { type: Date, default: Date.now() }, // 创建时间
     updatedTime: { type: Date, default: Date.now() }, // 最后更新时间
+    recycle: { type: Boolean, default: false}, // 回收
   },
 }
