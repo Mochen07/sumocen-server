@@ -30,14 +30,27 @@ const tag = {
   },
   // 列表
   async list () {
-    let result = await Tag.find({}, {_id:1,name:1,icon:1})
+    let result = await Tag.find({recycle:false}, {_id:1,name:1,icon:1,recycle:1})
     if (result && result.length) {
       for (let i = 0; i < result.length; i++) {
         result[i]._doc.useNum = await Article.find({tag: {$in: [String(result[i]._doc._id)]}}).countDocuments()
       }
     }
     return result
-  }
+  },
+  // delete
+  async delete (data) {
+    const result = await Tag.updateOne(
+      {_id: data._id},
+      {
+        $set: {recycle: true}
+      }
+    )
+    if (result.n===0) {
+      throw new AcceptedError('未找到需要删除的内容')
+    }
+    return result
+  },
 }
 
 module.exports = tag

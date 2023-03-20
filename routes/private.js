@@ -14,6 +14,7 @@ router.post('/article/delete', controllers.article.delete)
 // tag
 router.post('/tag/addEdit', controllers.tag.addEdit)
 router.get('/tag/list', controllers.tag.list)
+router.post('/tag/delete', controllers.tag.delete)
 // tool
 router.post('/upload', controllers.tool.upload)
 

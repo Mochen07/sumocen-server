@@ -4,12 +4,13 @@ const tag = {}
 
 // 新增编辑
 tag.addEdit = async (ctx, next) => {
-  let {_id, name, icon} = ctx.request.body
+  let {_id, name, icon, recycle} = ctx.request.body
   const result = await tagServices.addEdit({
-    _id, name, icon
+    _id, name, icon, recycle
   })
   if (!result) {
     ctx.result = name
+    ctx.code = 202
     ctx.msg = '名称已存在'
     return next()
   }
@@ -30,6 +31,14 @@ tag.addEdit = async (ctx, next) => {
 // 列表
 tag.list = async (ctx, next) => {
   const result = await tagServices.list()
+  ctx.result = result
+  return next()
+}
+
+// 删除
+tag.delete = async (ctx, next) => {
+  const {_id} = ctx.request.body
+  const result = await tagServices.delete({_id})
   ctx.result = result
   return next()
 }
